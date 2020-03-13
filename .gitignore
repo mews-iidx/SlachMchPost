@@ -3,3 +3,6 @@ sankou.py
 *.swp
 __pycache__
 ui/*.py
+build
+dist
+*.spec
