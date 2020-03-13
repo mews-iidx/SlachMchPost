@@ -1,0 +1,5 @@
+url_list.txt
+sankou.py
+*.swp
+__pycache__
+ui/*.py
