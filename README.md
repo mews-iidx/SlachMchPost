@@ -1,6 +1,6 @@
 # SlachMchPost
 
-Slack のいろんなチャンネルに`@channel` とか`@here` とかでメッセージ飛ばすツール
+Slack のいろんなワークスペース・チャンネルに`@channel` とか`@here` とかでメッセージ飛ばすツール
 
 ![img](./imgs/img.png)
 
