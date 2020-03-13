@@ -2,6 +2,8 @@
 
 Slack のいろんなチャンネルに`@channel` とか`@here` とかでメッセージ飛ばすツール
 
+![img](./imgs/img.png)
+
 ## 使い方
 
 1. [リリース一覧](https://github.com/mews-iidx/SlachMchPost/releases) から、`dist.zip`をDLして解凍
