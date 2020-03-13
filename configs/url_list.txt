@@ -1,0 +1,2 @@
+mews-base, https://hooks.slack.com/services/TKUVCPSJE/BVB6Y0DEG/XXXXXXXXXXXXXXXX
+mews-base2, https://hooks.slack.com/services/TKUVCPSJE/BVB6Y0DEG/XXXXXXXXXXXXXXXX
