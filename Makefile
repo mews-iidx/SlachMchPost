@@ -10,3 +10,6 @@ dist/main.exe: main.py ui/main_ui.py
 
 dist/configs:
 	cp -r configs dist/
+
+clean:
+	$(RM) build __pycache__ dist ui/*.py 
