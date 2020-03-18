@@ -36,21 +36,27 @@ class Ui(Ui_Dialog):
                 if ret.status_code == 200:
                     print('send success {}'.format(name))
                 else:
-                    QtWidgets.QMessageBox.warning(None, "警告", "{} のwebhook URLが間違えています！！確認して！".format(name))
+                    ret = QtWidgets.QMessageBox.warning(None, "警告", "{} のwebhook URLが多分間違えています！！ \n 続ける？".format(name), QtWidgets.QMessageBox.Yes | QtWidgets.QMessageBox.No )
+                    if ret == QtWidgets.QMessageBox.No:
+                        return
             except :
-                print("EXCEPT")
-                QtWidgets.QMessageBox.warning(None, "警告", "{} のwebhook URLが間違えています！！確認して！".format(name))
+                ret = QtWidgets.QMessageBox.warning(None, "警告", "{} のwebhook URLが多分間違えています！！ \n 続ける？".format(name), QtWidgets.QMessageBox.Yes | QtWidgets.QMessageBox.No )
+                if ret == QtWidgets.QMessageBox.No:
+                    return
         self.writeHookList()
+############
     
     def buttonAddClick(self):
-        print('add button click')
         hook_name = self.hookName.text()
         hook_url = self.hookUrl.text()
+        if not hook_name or not hook_url:
+            ret = QtWidgets.QMessageBox.warning(None, "警告", "送信先名とWebhookを入力してから押してください！！")
+            return 
+
         self.hookList.addItem(hook_name)
         self.hooks_dict[hook_name] = hook_url
 
     def buttonDelClick(self):
-        print('del button click')
         selected_item = self.hookList.selectedItems()
         cur_item = self.hookList.currentItem()
         if cur_item:
@@ -59,7 +65,6 @@ class Ui(Ui_Dialog):
             del self.hooks_dict[cur_item.text()]
 
     def getHookList(self):
-        print('getHookList')
         items = self.hookList.items()
         return items
     
