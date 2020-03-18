@@ -6,6 +6,40 @@ Slack のいろんなワークスペース・チャンネルに`@channel` とか
 
 ## 使い方
 
-1. [リリース一覧](https://github.com/mews-iidx/SlachMchPost/releases) から、`dist.zip`をDLして解凍
-1. 解凍後ディレクトリの`configs/url_list.txt` を好きなように編集 ※要Incoming webhook
-1. main.exe 実行、あとはわかる！
+
+### ダウンロード
+
+1. [リリース一覧](https://github.com/mews-iidx/SlachMchPost/releases) から、`dist.zip`をダウンロード
+1. dist.zipを解凍(展開)
+
+### 実行
+
+main.exe 実行
+
+![img](./imgs/img.png)
+
+### 送信先の設定
+
+ここにある一覧に対して全送信します。
+1. 送信先設定タブをクリック
+1. 送信先名を入力
+1. webhookを入力
+1. 追加ボタンをクリック
+
+![img2](./imgs/img2.png)
+
+### 送信
+
+1. 本文タブをクリック
+1. 本文を入力
+1. 通知設定を選択
+1. 送信ボタンをクリック
+
+![img](./imgs/img.png)
+
+## v1.1 新機能!!
+
+* 送信先設定実装！
+    - textファイルをいじらなくて良くなりました
+* エラーハンドル追加
+    - なぜか落ちることが大幅に減りました

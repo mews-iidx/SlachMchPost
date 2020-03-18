@@ -16,6 +16,10 @@ class Ui(Ui_Dialog):
         self.readHookList()
 
     def buttonClick(self):
+        ret = QtWidgets.QMessageBox.information(None, "info", "本当に送信する？", QtWidgets.QMessageBox.Yes | QtWidgets.QMessageBox.No )
+        if ret == QtWidgets.QMessageBox.No:
+            QtWidgets.QMessageBox.information(None, "info", "送信先をやめときました！")
+            return
         text = self.textEdit.toPlainText()
 
         if self.to_channel.isChecked():
@@ -30,11 +34,13 @@ class Ui(Ui_Dialog):
 
         payload =  json.dumps(data)
         self.hooks_dict.items()
+        sends = []
         for name, url in self.hooks_dict.items():
             try:
                 ret = requests.post(url, payload)
                 if ret.status_code == 200:
                     print('send success {}'.format(name))
+                    sends.append(name)
                 else:
                     ret = QtWidgets.QMessageBox.warning(None, "警告", "{} のwebhook URLが多分間違えています！！ \n 続ける？".format(name), QtWidgets.QMessageBox.Yes | QtWidgets.QMessageBox.No )
                     if ret == QtWidgets.QMessageBox.No:
@@ -43,7 +49,16 @@ class Ui(Ui_Dialog):
                 ret = QtWidgets.QMessageBox.warning(None, "警告", "{} のwebhook URLが多分間違えています！！ \n 続ける？".format(name), QtWidgets.QMessageBox.Yes | QtWidgets.QMessageBox.No )
                 if ret == QtWidgets.QMessageBox.No:
                     return
-        self.writeHookList()
+        msg = ''
+        for s in sends:
+            msg += s + '\n'
+        QtWidgets.QMessageBox.information(None, "info", "以下に送信しました!\n{}".format(msg))
+        
+
+        ret = QtWidgets.QMessageBox.information(None, "info", "送信先を保存する？", QtWidgets.QMessageBox.Yes | QtWidgets.QMessageBox.No )
+        if ret == QtWidgets.QMessageBox.Yes:
+            self.writeHookList()
+            QtWidgets.QMessageBox.information(None, "info", "送信先を保存しました！")
 ############
     
     def buttonAddClick(self):
