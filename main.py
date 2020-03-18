@@ -9,7 +9,11 @@ class Ui(Ui_Dialog):
         self.pushButton.clicked.connect(self.buttonClick)
         self.addButton.clicked.connect(self.buttonAddClick)
         self.delButton.clicked.connect(self.buttonDelClick)
-        self.read_hook_list()
+
+        self.hooks_dict = {}
+        self.list_file = 'configs/url_list.txt'
+
+        self.readHookList()
 
     def buttonClick(self):
         text = self.textEdit.toPlainText()
@@ -54,15 +58,11 @@ class Ui(Ui_Dialog):
             print(item.text())
         pass
     
-#1. read url_list
-#2. ListWidget is added all items  
-    def read_hook_list(self):
-        print('call init')
-        list_file = 'configs/url_list.txt'
-        fp = open(list_file, 'r')
-
-        self.hooks_dict = {}
+    def readHookList(self):
+        fp = open(self.list_file, 'r')
         lines = fp.readlines()
+        fp.close()
+
         for line in lines:
             sp = line.split(',')
             hook_desc = sp[0].strip()
@@ -71,6 +71,16 @@ class Ui(Ui_Dialog):
 
         for k, v in self.hooks_dict.items():
             self.hookList.addItem(k)
+
+    def writeHookList(self):
+        fp = open(self.list_file, 'a')
+
+        for k, v in self.hooks_dict.items():
+            s = str(k) + ',' + str(v)
+            fp.write(s)
+
+        fp.close()
+        print('write complete')
 
 if __name__ == "__main__":
     import sys
