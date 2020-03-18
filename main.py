@@ -29,34 +29,35 @@ class Ui(Ui_Dialog):
         }
 
         payload =  json.dumps(data)
-        config_file ='configs/url_list.txt'
-
-        for line in open(config_file, 'r').readlines():
-            sp = line.split(',')
-            desc = sp[0].strip()
-            url = sp[1].strip()
+        self.hooks_dict.items()
+        for name, url in self.hooks_dict.items():
             ret = requests.post(url, payload)
-            if ret.success:
-                print('send success {}'.format(desc))
+            if ret.status_code == 200:
+                print('send success {}'.format(name))
+            else:
+                print('send fail {}'.format(name))
+        self.writeHookList()
     
     def buttonAddClick(self):
         print('add button click')
+        hook_name = self.hookName.text()
+        hook_url = self.hookUrl.text()
+        self.hookList.addItem(hook_name)
+        self.hooks_dict[hook_name] = hook_url
 
     def buttonDelClick(self):
         print('del button click')
         selected_item = self.hookList.selectedItems()
-        for i in selected_item:
-            print(i.text())
-        #TODO: debug  todel ### TODO:BUG
-        #self.getHookList()
-
+        cur_item = self.hookList.currentItem()
+        if cur_item:
+            cur_row = self.hookList.currentRow()
+            self.hookList.takeItem(cur_row)
+            del self.hooks_dict[cur_item.text()]
 
     def getHookList(self):
         print('getHookList')
         items = self.hookList.items()
-        for item in items:
-            print(item.text())
-        pass
+        return items
     
     def readHookList(self):
         fp = open(self.list_file, 'r')
@@ -64,6 +65,10 @@ class Ui(Ui_Dialog):
         fp.close()
 
         for line in lines:
+            if line == '\n':
+                print('config file error')
+                ret = QtWidgets.QMessageBox.warning(None, "警告", "configs/url_list.txt の書式が間違ってます！空行が入ってませんか！？")
+                quit()
             sp = line.split(',')
             hook_desc = sp[0].strip()
             hook_url = sp[1].strip()
@@ -73,14 +78,11 @@ class Ui(Ui_Dialog):
             self.hookList.addItem(k)
 
     def writeHookList(self):
-        fp = open(self.list_file, 'a')
-
+        fp = open(self.list_file, 'w')
         for k, v in self.hooks_dict.items():
-            s = str(k) + ',' + str(v)
+            s = str(k) + ',' + str(v) + '\n'
             fp.write(s)
-
         fp.close()
-        print('write complete')
 
 if __name__ == "__main__":
     import sys
