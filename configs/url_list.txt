@@ -1,2 +1,0 @@
-real-mews-base,https://hooks.slack.com/services/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
-error-mews-base,https://hooks.slack.com/services/TKUVCPSJE/XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
