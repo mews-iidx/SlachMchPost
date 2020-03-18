@@ -39,6 +39,14 @@ class Ui(Ui_Dialog):
 
     def buttonDelClick(self):
         print('del button click')
+        selected_item = self.hookList.selectedItems()
+        for i in selected_item:
+            print(i.text())
+
+
+    def getHookList(self):
+        pass
+        
         
 
 
