@@ -7,6 +7,8 @@ import os
 class Ui(Ui_Dialog):
     def setup(self, Dialog):
         self.pushButton.clicked.connect(self.buttonClick)
+        self.addButton.clicked.connect(self.buttonAddClick)
+        self.delButton.clicked.connect(self.buttonDelClick)
 
     def buttonClick(self):
         text = self.textEdit.toPlainText()
@@ -29,7 +31,15 @@ class Ui(Ui_Dialog):
             desc = sp[0].strip()
             url = sp[1].strip()
             ret = requests.post(url, payload)
-            print('send success {}'.format(desc))
+            if ret.success:
+                print('send success {}'.format(desc))
+    
+    def buttonAddClick(self):
+        print('add button click')
+
+    def buttonDelClick(self):
+        print('del button click')
+        
 
 
 if __name__ == "__main__":
