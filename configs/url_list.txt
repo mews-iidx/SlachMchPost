@@ -1,2 +1,0 @@
-mews-base,https://hooks.slack.com/services/xxxx/yyyyy/zzzzzzzz
-mews-base,https://hooks.slack.com/services/xxxx/yyyyy/zzzzzzzz

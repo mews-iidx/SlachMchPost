@@ -31,11 +31,15 @@ class Ui(Ui_Dialog):
         payload =  json.dumps(data)
         self.hooks_dict.items()
         for name, url in self.hooks_dict.items():
-            ret = requests.post(url, payload)
-            if ret.status_code == 200:
-                print('send success {}'.format(name))
-            else:
-                print('send fail {}'.format(name))
+            try:
+                ret = requests.post(url, payload)
+                if ret.status_code == 200:
+                    print('send success {}'.format(name))
+                else:
+                    QtWidgets.QMessageBox.warning(None, "警告", "{} のwebhook URLが間違えています！！確認して！".format(name))
+            except :
+                print("EXCEPT")
+                QtWidgets.QMessageBox.warning(None, "警告", "{} のwebhook URLが間違えています！！確認して！".format(name))
         self.writeHookList()
     
     def buttonAddClick(self):
